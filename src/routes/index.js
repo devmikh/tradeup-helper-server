@@ -7,7 +7,7 @@ router.get('/api/test', (req, res) => {
     res.status(200).json({ data: 'test' });
 });
 
-router.get('/api/getItemInfo', async (req, res) => {
+router.post('/api/getItemInfo', async (req, res) => {
     if (req.body.inspect_link) {
         getItemInfo(req.body.inspect_link)
             .then((item) => {
