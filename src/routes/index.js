@@ -1,5 +1,6 @@
 const express = require('express');
 const { getItemInfo } = require('../config/SteamClient');
+const { getInventory } = require('../utils/inventory');
 
 const router = express.Router();
 
@@ -27,6 +28,11 @@ router.post('/api/getItemInfo', async (req, res) => {
     } else {
         res.status(404).json({ error: 'inspect_link_missing' });
     }
+});
+
+router.get('/api/getInventory/:id', async (req, res) => {
+    const result = await getInventory(req.params.id);
+    res.status(200).json({ ...result });
 });
 
 module.exports = router;
