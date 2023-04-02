@@ -33,7 +33,7 @@ router.get('/api/getInventory/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({
             data: null,
-            error: 'Interntal server error',
+            error: 'Internal server error',
             status: 500
         });
     }
