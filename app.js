@@ -16,5 +16,5 @@ app.use(router);
 
 app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server listening on port ${process.env.SERVER_PORT}`);
-    logOnClient();
+    // logOnClient();
 });

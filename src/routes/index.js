@@ -4,10 +4,6 @@ const { getInventory } = require('../utils/inventory');
 
 const router = express.Router();
 
-router.get('/api/test', (req, res) => {
-    res.status(200).json({ data: 'test' });
-});
-
 router.post('/api/getItemInfo', async (req, res) => {
     if (req.body.inspect_link) {
         getItemInfo(req.body.inspect_link)
@@ -31,8 +27,17 @@ router.post('/api/getItemInfo', async (req, res) => {
 });
 
 router.get('/api/getInventory/:id', async (req, res) => {
-    const result = await getInventory(req.params.id);
-    res.status(200).json({ ...result });
+    try {
+        const result = await getInventory(req.params.id);
+        res.status(result.status).json({ ...result });
+    } catch (error) {
+        res.status(500).json({
+            data: null,
+            error: 'Interntal server error',
+            status: 500
+        });
+    }
+    
 });
 
 module.exports = router;

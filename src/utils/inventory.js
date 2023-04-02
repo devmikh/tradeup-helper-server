@@ -2,24 +2,27 @@ const axios = require('axios');
 
 const getInventory = async(steamId) => {
     try {
-        const response = await axios.get(`${process.env.STEAM_INVENTORY_LINK}/${steamId}/730/2`);
+        const response = await axios.get(process.env.STEAM_INVENTORY_LINK.replace('{steamId}', steamId));
         if (response.status === 200) {
             const items = formatItems(response.data);
             return {
                 data: items,
-                error: null
+                error: null,
+                status: response.status
             }
         } else {
             return {
                 data: null,
-                error: null
+                error: null,
+                status: response.status
             }
         }
 
     } catch (error) {
         return {
             data: null,
-            error
+            error: error.message,
+            status: error.response.status
         }
     }    
 };
