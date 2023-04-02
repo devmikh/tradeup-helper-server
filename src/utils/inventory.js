@@ -41,7 +41,7 @@ const formatItemsForTradeUps = (data) => {
                 icon_url: description.icon_url,
                 exterior: formatExteriorString(description.descriptions[0].value),
                 grade: assetGrade,
-                collection: description.descriptions[4] && description.descriptions[4].value,
+                collection: description.descriptions[4] && formatCollectionString(description.descriptions[4].value),
             }
         }
         
@@ -57,6 +57,10 @@ const formatExteriorString = (string) => {
 
 const formatGradeString = (string) => {
     return string.split(' ')[0];
+}
+
+const formatCollectionString = (string) => {
+    return string.replace('The ', '');
 }
 
 module.exports = {
