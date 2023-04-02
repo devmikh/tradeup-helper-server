@@ -1,8 +1,18 @@
 const express = require('express');
 const { getItemInfo } = require('../config/SteamClient');
 const { getInventory } = require('../utils/inventory');
+const User = require('../models/User');
 
 const router = express.Router();
+
+// Test route (to be removed)
+router.get('/api/test', async (req, res) => {
+    const newUser = await User.create({
+        firstName: 'John',
+        lastName: 'Doe'
+    });
+    res.send(newUser);
+});
 
 router.post('/api/getItemInfo', async (req, res) => {
     if (req.body.inspect_link) {
