@@ -6,9 +6,10 @@ const getInventory = async(steamId) => {
         if (response.status === 200) {
             const items = formatItemsForTradeUps(response.data, steamId);
             try {
-                const itemsWithFloats = await getFloatsForItems(items);
+                // UNCOMMENT to retrieve floats as well, then pass itemsWithFloats to data (instead of items)
+                // const itemsWithFloats = await getFloatsForItems(items);
                 return {
-                    data: itemsWithFloats,
+                    data: items,
                     error: null,
                     status: response.status
                 }
@@ -28,6 +29,7 @@ const getInventory = async(steamId) => {
         }
 
     } catch (error) {
+        console.error(error);
         return {
             data: null,
             error: error.message,
@@ -80,7 +82,8 @@ const formatItemsForTradeUps = (data, steamId) => {
                 grade: assetGrade,
                 collection: description.descriptions[4] && formatCollectionString(description.descriptions[4].value),
                 inspect_link: inspectLink.replace('%owner_steamid%', steamId).replace('%assetid%', asset.assetid),
-                float: 0
+                float: 0.099989786976,
+                selected: false
             }
         }
         
